@@ -21,3 +21,8 @@ function plusminus(num1) {
 function percent(num1) {
     return num1 / 100; 
 }
+
+
+function operate(num1, num2, operator) {
+    
+}
