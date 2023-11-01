@@ -1,4 +1,4 @@
-let num1 = '';
+let num1 = '0';
 let num2 = '';
 let currOperand = null;
 let hasOperand = false;
@@ -10,7 +10,13 @@ const operators = document.querySelectorAll('#operator');
 const equals = document.querySelector('#equal');
 const acButton = document.querySelector('#clear');
 const cButton = document.querySelector('#delete');
+const percentageButton = document.querySelector('#percent');
+const plusminusButton = document.querySelector('#plus-minus');
+const decimalButton = document.querySelector('.decimal');
 
+percentageButton.addEventListener('click', () => ChangeToPercent());
+plusminusButton.addEventListener('click', () => PlusMinus());
+decimalButton.addEventListener('click', () => AddDecimal());
 
 acButton.addEventListener('click', () => clear());
 cButton.addEventListener('click', () => deleteNumber());
@@ -22,20 +28,43 @@ operators.forEach((button) =>
     button.addEventListener('click', () => displayOperator(button.textContent)));
 
 
+
+function ChangeToPercent() {
+    num1 = Number(currentOperationDisplay.textContent) / 100;
+    currentOperationDisplay.textContent = num1;
+}
+
+function PlusMinus() {
+    num1 = Number(currentOperationDisplay.textContent) * -1;
+    currentOperationDisplay.textContent = num1;
+}
 function clear() {
     currentOperationDisplay.textContent = '0';
     prevOperationDisplay.textContent = '';
-    num1 = '';
+    num1 = '0';
     num2 ='';
     currOperand = null;
 }
 
+function AddDecimal() {
+    if(hasOperand) {
+        currentOperationDisplay.textContent = '';
+        hasOperand = false;
+    }
+    if(currentOperationDisplay.textContent == '') {
+        currentOperationDisplay.textContent = '0'
+    }
+    if(currentOperationDisplay.textContent.includes('.')) {
+        return;
+    }
+    currentOperationDisplay.textContent += '.';
+}
 
 function deleteNumber() {
     currentOperationDisplay.textContent = currentOperationDisplay.textContent.slice(0,-1);
 }
 function displayNumber(number) {
-    if(currOperand != null || currentOperationDisplay.textContent == 0) {
+    if(currOperand != null || currentOperationDisplay.textContent == '0') {
         currentOperationDisplay.textContent = '';
         hasOperand = false;
     }
